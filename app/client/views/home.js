@@ -41,5 +41,19 @@ Template.home.events = {
 		event.preventDefault();
 		event.stopPropagation();
 
+	},
+	'click [data-action="open-course"]': function(event, template){
+		event.preventDefault();
+		event.stopPropagation();
+		FlowRouter.go('/course/' + this._id);
+	}
+};
+
+
+
+Template.twitterLogin.events = {
+	'click button[data-action="launch-twitter-login"]': function(event, template){
+		event.preventDefault();
+		Meteor.loginWithTwitter({loginStyle: 'redirect'});
 	}
 };
