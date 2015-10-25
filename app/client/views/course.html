@@ -17,22 +17,82 @@
 				{{#momentum plugin='velocity-reverse' duration=250}}
 					{{#if queryParamEquals 'lessonStep' 'intro'}}
 						<div class="col-xs-12 text-center new-message-sub-header">
-							Give your alert a name.
-						</div>
+                            <h2>Video</h2>
+						    <span class="bold">TL;DR</span>We will give you tips as we go
+                            <br>
+                            Todays lesson will start off by loggin in and out of a website.  This lesson is targed at early to midlevel php programmers.
+                            <h3>What is MySQL</h3>
+                            MySQL is the world's most popular open source database.  But you already knew that.  This tutorial assumes basic knowledge of MySQL and database and websites.  If you feel like this is too advanced, please see our earler coursers.
+                            <h3>Overview</h3>
+                            We will be tackling this problem from the outside, and the inside.
+                            <h4>Outside</h4>
+                            This is the most exciting part!  We will be breaking into a MySQL and PHP webpage.
+                            <ul>
+                                <li><span class="bold">*</span> Login as a normaml user</li>
+                                <li><span class="bold">*</span> Login as the wrong user</li>
+                                <li><span class="bold">*</span> Delete another user</li>
+                                <li><span class="bold">*</span> Delete entire database including all user</li>
+                            </ul>
+
+                            <h4>Inside</h4>
+                            This is the most <span class="bold">important part</span> how to secure a webpage like this.
+
+                            <h3>Lets Start</h3>
+                            Hit next.  A "iframe" of the vulnerable website will appear on the next page.
+
+                        </div>
 					{{/if}}
 					{{#if queryParamEquals 'lessonStep' 'login'}}
 						<div class="col-xs-12 text-center new-message-sub-header">
-							What message would you like to send?
+                            <h2>Outside: Step 1</h2>
+                            <code>Simply login</code>
+							The password textbox is not started out with *** because this is a friendly demo.  It's easy to login, the default username and password are already displayed.
+                            What message would you like to send?
 						</div>
 					{{/if}}
-					{{#if queryParamEquals 'lessonStep' 'dropUser'}}
+					{{#if queryParamEquals 'lessonStep' 'adminLogin'}}
 						<div class="col-xs-12 text-center new-message-sub-header">
-							Select how much time should pass without a check in before Muerteor sends your message.
+                            <h2>Outside: Step 2</h2>
+                            <code>Break-in</code>
+                            I heard that the admin's email is: admin@app.com.  I don't know what his password is but I bet you can get around that.
+                            <br>
+                            Use this as your password:
+                            <code>' or 1=1;  --  </code>
+                            It's important to put spaces between the ; and --
+                            <h2>Result</h2>
+                            <span class="bold">Oh Gosh</span> We logged in as the admin user!  That's not right!?  With this power we could <span class="bold">PAWN</span> this site.
+                            <h2>What's happening</h2>
+                            So what exactly is happening under the hood here?  Well lets look at this:
+
+
+
+                            <code><span style="color: #000000">
+<span style="color: #0000BB">&lt;?php<br>$sql&nbsp;</span><span style="color: #007700;">=&nbsp;</span><span style="color: #DD0000;">"SELECT&nbsp;email,&nbsp;sGUID&nbsp;FROM&nbsp;users&nbsp;WHERE&nbsp;email&nbsp;=&nbsp;'</span><span style="color: #0000BB;">$email</span><span style="color: #DD0000;">'&nbsp;AND&nbsp;password&nbsp;=&nbsp;'</span><span style="color: #0000BB;">$password</span><span style="color: #DD0000;">'"</span><span style="color: #007700;">;<br></span><span style="color: #0000BB;">?&gt;</span>
+</span></code>
+                            <br>
+                            The $password variable is where we will work all of our magic.  As a user giving input to the server, you can only control certan parts of information.  In the above SQL statement we can only change what goes in $password which is between some pesky single quotes.
+                            <h2>The Hack</h2>
+                            By first closing the single quotes, we are free hijack this statement.  This allows us to add another clause which is always true.  Finally we come to double spaces and then double - dashes.  This is a mysql comment, signifying that everything coming after this should be ignored.  This will then annihilate the final single quote that is outside of our control.
 						</div>
 					{{/if}}
+                    {{#if queryParamEquals 'lessonStep' 'dropUser'}}
+                    <div class="col-xs-12 text-center new-message-sub-header">
+                        <h2>Outside: Step 3</h2>
+                        <code>Drop a user</code>
+                        Using what we've taught you it should be simple to understand that the following will actually drop an entire user from the database.
+                        <br>
+                        Use this as your password:
+                        <code>' ; DELETE from users WHERE autoinc = 3; --</code>
+                    </div>
+                    {{/if}}
 					{{#if queryParamEquals 'lessonStep' 'dropTable'}}
 						<div class="col-xs-12 text-center new-message-sub-header">
-							Who do you want to send this message to?
+                            <h2>Outside: Step 4</h2>
+                            <code>Drop the entire table</code>
+                            This final step will basically destroy the database for this website.  Instead of just dropping a single user, we can drop the entire table.  This is a nighmare scenario if you are running website.
+                            <br>
+                            Use this as your password:
+                            <code>' ; DROP table users; --</code>
 						</div>
 					{{/if}}
 				{{/momentum}}
