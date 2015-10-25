@@ -14,7 +14,7 @@ Template.course.onCreated(function(){
 			if(state > currentState){
 				currentState =  state;
 				try{
-					if(currentState === 3){
+					if(currentState === 4){
 						playMultiSound('final');
 					}else{
 						playMultiSound('progress');
@@ -63,6 +63,8 @@ Template.course.events = {
 		}else{
 			FlowRouter.go('/');
 			FlowRouter.setQueryParams({lessonStep: null});
+			Meteor.call('lessonEnded');
+			Meteor.call('resetLesson');
 			//Meteor.call('resetMessageTimer', message._id, moment().valueOf());
 		}
 	},
@@ -75,6 +77,8 @@ Template.course.events = {
 		}else{
 			FlowRouter.go('/');
 			FlowRouter.setQueryParams({lessonStep: null});
+			Meteor.call('lessonEnded');
+			Meteor.call('resetLesson');
 		}
 	}
 };
