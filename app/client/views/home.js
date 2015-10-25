@@ -11,6 +11,20 @@ var reRunComputationAfterTime = function(recalculateIn){
 	}
 };
 
+Template.home.onCreated(function(){
+	var wow = new WOW({
+		mobile: false
+	});
+	wow.init();
+});
+Template.home.onRendered(function(){
+	$(".screen-height").height($(window).height());
+
+	$(window).resize(function(){
+		$(".screen-height").height($(window).height());
+	});
+});
+
 Template.home.helpers({
 	helperName: function(){
 		//helper function

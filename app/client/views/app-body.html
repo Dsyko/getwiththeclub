@@ -17,13 +17,9 @@
 </template>
 
 <template name="appBody">
-	<div id="container" class="container-fluid">
-		<div class="content-scrollable">
-			{{> appHeader}}
+			{{! > appHeader}}
 			{{#momentum plugin='velocity-reverse' duration=250}}
 				{{> Template.dynamic template=main}}
 			{{/momentum}}
-		</div>
-	</div>
 </template>
 
