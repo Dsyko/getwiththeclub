@@ -30,8 +30,8 @@ Template.home.onRendered(function(){
 });
 
 Template.home.helpers({
-	helperName: function(){
-		//helper function
+	classes: function(){
+		return COURSES;
 	}
 });
 
