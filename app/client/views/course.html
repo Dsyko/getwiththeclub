@@ -1,8 +1,49 @@
 <template name="course">
 	{{#with course}}
 		<div class="container">
-			<div class="row text-center">
-				<h2>Welcome to the lesson on {{title}}</h2>
+			<div class="row text-center lesson-title">
+				<h2>Welcome to the {{title}} lesson</h2>
+			</div>
+			<div class="row">
+				<div class="col-sm-8 col-sm-offset-2">
+					<div class="video-wrapper">
+						<div class="video">
+							<iframe width="550" height="310" src="https://www.youtube.com/embed/HapGIhE7KpM" frameborder="0" allowfullscreen></iframe>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="row">
+				{{#momentum plugin='velocity-reverse' duration=250}}
+					{{#if queryParamEquals 'lessonStep' 'intro'}}
+						<div class="col-xs-12 text-center new-message-sub-header">
+							Give your alert a name.
+						</div>
+					{{/if}}
+					{{#if queryParamEquals 'lessonStep' 'login'}}
+						<div class="col-xs-12 text-center new-message-sub-header">
+							What message would you like to send?
+						</div>
+					{{/if}}
+					{{#if queryParamEquals 'lessonStep' 'dropUser'}}
+						<div class="col-xs-12 text-center new-message-sub-header">
+							Select how much time should pass without a check in before Muerteor sends your message.
+						</div>
+					{{/if}}
+					{{#if queryParamEquals 'lessonStep' 'dropTable'}}
+						<div class="col-xs-12 text-center new-message-sub-header">
+							Who do you want to send this message to?
+						</div>
+					{{/if}}
+				{{/momentum}}
+				<div class="col-xs-8 col-xs-offset-2 new-message-navigation">
+					<div class="col-xs-6">
+						<button class="btn btn-default" data-action="prev"><i class="fa fa-angle-left"></i> {{#if onFirstStep}}Home{{else}}Prev{{/if}}</button>
+					</div>
+					<div class="col-xs-6">
+						<button class="btn btn-default pull-right" data-action="next"> {{#if onLastStep}}Finish{{else}}Next{{/if}} <i class="fa fa-angle-right"></i></button>
+					</div>
+				</div>
 			</div>
 		</div>
 	{{/with}}
