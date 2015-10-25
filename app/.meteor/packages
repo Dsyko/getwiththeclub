@@ -16,5 +16,41 @@ standard-minifiers      # JS/CSS minifiers run for production mode
 es5-shim                # ECMAScript 5 compatibility for older browsers.
 ecmascript              # Enable ECMAScript2015+ syntax in app code
 
-autopublish             # Publish all data to the clients (for prototyping)
-insecure                # Allow all DB writes from clients (for prototyping)
+underscore
+accounts-base
+accounts-password
+accounts-twitter
+service-configuration
+oauth1
+check
+launch-screen
+email
+less
+reactive-var
+
+#routing
+kadira:flow-router
+kadira:blaze-layout
+
+meteorhacks:subs-manager
+meteorhacks:kadira-profiler
+meteorhacks:kadira
+meteorhacks:npm
+
+fortawesome:fontawesome
+entypo
+momentjs:moment
+natestrauser:animate-css
+
+percolate:velocityjs
+percolate:momentum
+
+simple:reactive-method
+twbs:bootstrap
+natestrauser:select2
+natestrauser:x-editable-bootstrap
+mizzao:bootboxjs
+
+cmather:handlebars-server
+
+npm-container

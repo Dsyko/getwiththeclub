@@ -1,0 +1,29 @@
+<template name="appHeader">
+	{{bodyClasses}}
+	<div class="{{#if userIsLoggedIn}}collapsed-header{{/if}}" data-action="return-home">
+		<div class="app-icon {{iconClasses}}">
+			{{>appIcon}}
+		</div>
+		<div class="app-title">
+			Get With The Club
+		</div>
+		<div class="app-sub-title">
+			Hack into real sites, and learn about security
+		</div>
+		<div class="app-logout">
+			<a href="#" data-action="logout"><i class="fa fa-sign-out"></i> Logout</a>
+		</div>
+	</div>
+</template>
+
+<template name="appBody">
+	<div id="container" class="container-fluid">
+		<div class="content-scrollable">
+			{{> appHeader}}
+			{{#momentum plugin='velocity-reverse' duration=250}}
+				{{> Template.dynamic template=main}}
+			{{/momentum}}
+		</div>
+	</div>
+</template>
+
