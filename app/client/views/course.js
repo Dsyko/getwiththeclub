@@ -1,4 +1,4 @@
-var lessonSteps = [ 'intro', 'login', 'dropUser', 'dropTable'];
+var lessonSteps = [ 'intro', 'login', 'adminLogin', 'dropUser', 'dropTable'];
 
 Template.course.onCreated(function(){
 	if(!_.isString(FlowRouter.getQueryParam('lessonStep'))){
@@ -55,6 +55,28 @@ Template.course.events = {
 		}else{
 			FlowRouter.go('/');
 			FlowRouter.setQueryParams({lessonStep: null});
+		}
+	}
+};
+
+
+var channel_max = 10;										// number of channels
+var audioChannels = [];
+for (var channelNumber = 0; channelNumber < channel_max; channelNumber++) {	// prepare the channels
+	audioChannels[channelNumber] = {};
+	audioChannels[channelNumber].channel = new Audio();// create a new audio object
+	audioChannels[channelNumber].finished = -1;// expected end time for this channel
+}
+
+playMultiSound = function(sound) {
+	for (var channelNumber = 0; channelNumber < audioChannels.length;channelNumber++) {
+		var thisTime = new Date();
+		if (audioChannels[channelNumber].finished < thisTime.getTime()) {			// is this channel finished?
+			audioChannels[channelNumber].finished = thisTime.getTime() + document.getElementById(sound).duration*1000;
+			audioChannels[channelNumber].channel.src = document.getElementById(sound).src;
+			audioChannels[channelNumber].channel.load();
+			audioChannels[channelNumber].channel.play();
+			break;
 		}
 	}
 };
