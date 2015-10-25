@@ -1,2 +1,2 @@
 Users = Meteor.users;
-Courses = new Mongo.Collection("courses");
+LessonStatus = new Mongo.Collection("lessonStatus");

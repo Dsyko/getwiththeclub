@@ -4,6 +4,12 @@ Template.course.onCreated(function(){
 	if(!_.isString(FlowRouter.getQueryParam('lessonStep'))){
 		FlowRouter.setQueryParams({lessonStep: lessonSteps[0]});
 	}
+	Meteor.call('lessonStarted', FlowRouter.getParam('_id'));
+});
+
+Template.course.onDestroyed(function(){
+	Meteor.call('lessonEnded');
+	Meteor.call('resetLesson');
 });
 
 
