@@ -1,10 +1,26 @@
 var lessonSteps = [ 'intro', 'login', 'adminLogin', 'dropUser', 'dropTable'];
 
 Template.course.onCreated(function(){
+	var template = this;
 	if(!_.isString(FlowRouter.getQueryParam('lessonStep'))){
 		FlowRouter.setQueryParams({lessonStep: lessonSteps[0]});
 	}
 	Meteor.call('lessonStarted', FlowRouter.getParam('_id'));
+	var currentState = 0;
+	template.autorun(function(){
+		var lesson = LessonStatus.findOne({lessonId: FlowRouter.getParam('_id')});
+		if(lesson && _.isString(lesson.state)){
+			var state = parseInt(lesson.state, 10);
+			if(state > currentState){
+				currentState =  state;
+				if(currentState === 3){
+					playMultiSound('final');
+				}else{
+					playMultiSound('progress');
+				}
+			}
+		}
+	});
 });
 
 Template.course.onDestroyed(function(){
