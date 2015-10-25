@@ -13,10 +13,14 @@ Template.course.onCreated(function(){
 			var state = parseInt(lesson.state, 10);
 			if(state > currentState){
 				currentState =  state;
-				if(currentState === 3){
-					playMultiSound('final');
-				}else{
-					playMultiSound('progress');
+				try{
+					if(currentState === 3){
+						playMultiSound('final');
+					}else{
+						playMultiSound('progress');
+					}
+				}catch(err){
+
 				}
 			}
 		}
