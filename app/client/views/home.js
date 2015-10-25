@@ -17,12 +17,18 @@ Template.home.onCreated(function(){
 	});
 	wow.init();
 });
-Template.home.onRendered(function(){
-	var setHeight = function(){
-		var height = $(window).height();//Math.max($(window).height(), 700);
-		$(".screen-height").height(height);
-	};
 
+var setHeight = function(){
+	var height = $(window).height();//Math.max($(window).height(), 700);
+	$(".screen-height").height(height);
+};
+
+Template.home.onRendered(function(){
+
+
+	Meteor.setTimeout(function(){
+		setHeight();
+	}, 300);
 	setHeight();
 	$(window).resize(function(){
 		setHeight();

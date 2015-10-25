@@ -12,7 +12,7 @@ Template.course.onCreated(function(){
 		if(lesson && _.isString(lesson.state)){
 			var state = parseInt(lesson.state, 10);
 			if(state > currentState){
-				currentState =  state;
+				currentState = state;
 				try{
 					if(currentState === 4){
 						playMultiSound('final');
@@ -20,7 +20,7 @@ Template.course.onCreated(function(){
 						playMultiSound('progress');
 					}
 				}catch(err){
-
+					console.log('err', err);
 				}
 			}
 		}
@@ -48,6 +48,9 @@ Template.course.helpers({
 	onLastStep: function(){
 		var step = FlowRouter.getQueryParam('lessonStep');
 		return _.indexOf(lessonSteps, step) === (lessonSteps.length -1);
+	},
+	sqlUrl: function(){
+		return SQL_URL + '/index.php';
 	}
 });
 

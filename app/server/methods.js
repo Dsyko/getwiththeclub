@@ -12,7 +12,7 @@ Meteor.methods({
 				LessonStatus.insert({lessonId: lessonId, userId: userId, state: '0'});
 			}
 			timeoutHandles[userId] = Meteor.setInterval(function(){
-				var currentStatus = HTTP.get('http://php-lesson-001.eu-gb.mybluemix.net/score.php');
+				var currentStatus = HTTP.get(SQL_URL + '/score.php');
 				console.log('currentStatus: ', currentStatus.content);
 				var lessonStatus = LessonStatus.findOne({lessonId: lessonId, userId: userId});
 				if(lessonStatus && lessonStatus.state !== (currentStatus && currentStatus.content)){
@@ -31,6 +31,6 @@ Meteor.methods({
 	},
 	resetLesson: function() {
 		check(arguments, [Match.any]);
-		HTTP.get('http://php-lesson-001.eu-gb.mybluemix.net/reset.php');
+		HTTP.get(SQL_URL + '/reset.php');
 	}
 });
