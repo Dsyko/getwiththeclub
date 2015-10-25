@@ -18,10 +18,14 @@ Template.home.onCreated(function(){
 	wow.init();
 });
 Template.home.onRendered(function(){
-	$(".screen-height").height($(window).height());
+	var setHeight = function(){
+		var height = $(window).height();//Math.max($(window).height(), 700);
+		$(".screen-height").height(height);
+	};
 
+	setHeight();
 	$(window).resize(function(){
-		$(".screen-height").height($(window).height());
+		setHeight();
 	});
 });
 
@@ -33,7 +37,9 @@ Template.home.helpers({
 
 
 Template.home.events = {
-	'click [data-action="action-type"]': function(event, template){
-		//click handler
+	'click [data-action="scroll-to-classes"]': function(event, template){
+		event.preventDefault();
+		event.stopPropagation();
+
 	}
 };
